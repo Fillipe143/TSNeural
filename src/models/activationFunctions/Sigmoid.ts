@@ -5,4 +5,4 @@ export class Sigmoid implements ActivationFunction {
         // f(x) = 1 / (1 + e^-x)
         return 1 / (1 + Math.exp(-x));
     }
-};
+}
