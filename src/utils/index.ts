@@ -1,2 +1,2 @@
 export * from "./gausianRandom";
-export * from "./activationInstance"
+export * from "./activationInstance";
