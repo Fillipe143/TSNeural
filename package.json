@@ -1,0 +1,29 @@
+{
+  "name": "ts-neural",
+  "version": "1.0.0",
+  "description": "TSNeural is a library that allows you to create neural networks in JS/TS in a simple and easy way.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest"
+  },
+  "keywords": [
+    "Neural",
+    "Network"
+  ],
+  "author": "Fillipe143",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fillipe143/TSNeural.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fillipe143/TSNeural/issues"
+  },
+  "homepage": "https://github.com/Fillipe143/TSNeural#readme",
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "typescript": "^5.1.3",
+    "vitest": "^0.32.2"
+  }
+}
