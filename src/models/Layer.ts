@@ -18,6 +18,10 @@ export class Layer {
     }
 
     constructor(numNodesIn: number, numNodesOut: number) {
+        if (numNodesIn <= 0 || numNodesOut <= 0 || !Number.isInteger(numNodesIn) || !Number.isInteger(numNodesOut)) {
+            throw new RangeError("The argument must be a positive integer.");
+        }
+        
         this.numNodesIn = numNodesIn;
         this.numNodesOut = numNodesOut;
 
