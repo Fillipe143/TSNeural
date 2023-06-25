@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { ActivationFunctionType, Layer, LayerProperties } from "../src";
-import { InvalidBiasesSizeError, InvalidInputSizeError, InvalidPositiveIntegerError, InvalidWeigthsSizeError } from "../src/errors";
+import {
+    InvalidBiasesSizeError,
+    InvalidInputSizeError,
+    InvalidPositiveIntegerError,
+    InvalidWeigthsSizeError
+} from "../src/errors";
 
 describe("Create Layer", () => {
     it("should be able to create a Layer", () => {
@@ -49,7 +54,7 @@ describe("Layer generated properties", () => {
     })
 });
 
-describe("Load properties", () => {
+describe("Layer load properties", () => {
     const numNodesIn = 1;
     const numNodesOut = 2;
 
@@ -94,7 +99,7 @@ describe("Load properties", () => {
             weights: [0, 0, 0, 0],
             biases: [0]
         }
-        
+
         expect(() => layer.loadProps(newProps)).toThrow(InvalidBiasesSizeError);
     });
 });
