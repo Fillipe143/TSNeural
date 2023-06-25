@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Layer } from "../src";
+import { InvalidPositiveIntegerError } from "../src/errors";
 
 describe("Create Layer", () => {
     it("should be able to create a Layer", () => {
@@ -9,18 +10,18 @@ describe("Create Layer", () => {
         expect(new Layer(numNodesIn, numNodesOut)).instanceOf(Layer);
     });
 
-    it("should be thrown RangerError", () => {
+    it("should be thrown InvalidPositiveIntegerError", () => {
         const numNodesIn = -1;
         const numNodesOut = 3;
 
-        expect(() => new Layer(numNodesIn, numNodesOut)).toThrow(RangeError);
+        expect(() => new Layer(numNodesIn, numNodesOut)).toThrow(InvalidPositiveIntegerError);
     });
 
-    it("should be thrown RangerError", () => {
+    it("should be thrown InvalidPositiveIntegerError", () => {
         const numNodesIn = 2.5;
         const numNodesOut = 3;
 
-        expect(() => new Layer(numNodesIn, numNodesOut)).toThrow(RangeError);
+        expect(() => new Layer(numNodesIn, numNodesOut)).toThrow(InvalidPositiveIntegerError);
     });
 });
 

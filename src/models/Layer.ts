@@ -1,3 +1,4 @@
+import { InvalidPositiveIntegerError } from "../errors";
 import { LayerProperties } from "../types";
 import { gaussianRandom } from "../utils";
 
@@ -19,7 +20,7 @@ export class Layer {
 
     constructor(numNodesIn: number, numNodesOut: number) {
         if (numNodesIn <= 0 || numNodesOut <= 0 || !Number.isInteger(numNodesIn) || !Number.isInteger(numNodesOut)) {
-            throw new RangeError("The argument must be a positive integer.");
+            throw new InvalidPositiveIntegerError();
         }
         
         this.numNodesIn = numNodesIn;
