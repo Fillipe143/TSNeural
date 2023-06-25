@@ -1,15 +1,49 @@
-import { expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Layer } from "../src";
 
-test("create a layer", () => {
+describe("Create Layer", () => {
+    it("should be able to create a Layer", () => {
+        const numNodesIn = 2;
+        const numNodesOut = 3;
+
+        expect(new Layer(numNodesIn, numNodesOut)).instanceOf(Layer);
+    });
+
+    it("should be thrown RangerError", () => {
+        const numNodesIn = -1;
+        const numNodesOut = 3;
+
+        expect(() => new Layer(numNodesIn, numNodesOut)).toThrow(RangeError);
+    });
+
+    it("should be thrown RangerError", () => {
+        const numNodesIn = 2.5;
+        const numNodesOut = 3;
+
+        expect(() => new Layer(numNodesIn, numNodesOut)).toThrow(RangeError);
+    });
+});
+
+describe("Layer generated properties", () => {
     const numNodesIn = 2;
     const numNodesOut = 3;
 
     const layer = new Layer(numNodesIn, numNodesOut);
-    const layerProps = layer.properties;
+    const properties = layer.properties;
 
-    expect(layerProps.numNodesIn).equal(numNodesIn);
-    expect(layerProps.numNodesOut).equal(numNodesOut);
-    expect(layerProps.weights.length).equal(numNodesIn * numNodesOut);
-    expect(layerProps.biases.length).equal(numNodesOut);
+    it("should be have the correct numNodesIn value", () => {
+        expect(properties.numNodesIn).toEqual(numNodesIn);
+    });
+
+    it("should be have the correct numNodesOut value", () => {
+        expect(properties.numNodesOut).toEqual(numNodesOut);
+    });
+
+    it("should be have the correct number of weights", () => {
+        expect(properties.weights.length).toEqual(numNodesIn * numNodesOut);
+    });
+
+    it("should be have the correct number of biases", () => {
+        expect(properties.biases.length).toEqual(numNodesOut);
+    })
 });
