@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ActivationFunctionType, Layer } from "../src";
-import { InvalidInputSizeError, InvalidPositiveIntegerError } from "../src/errors";
+import { ActivationFunctionType, Layer, LayerProperties } from "../src";
+import { InvalidBiasesSizeError, InvalidInputSizeError, InvalidPositiveIntegerError, InvalidWeigthsSizeError } from "../src/errors";
 
 describe("Create Layer", () => {
     it("should be able to create a Layer", () => {
@@ -47,6 +47,56 @@ describe("Layer generated properties", () => {
     it("should be have the correct number of biases", () => {
         expect(properties.biases.length).toEqual(numNodesOut);
     })
+});
+
+describe("Load properties", () => {
+    const numNodesIn = 1;
+    const numNodesOut = 2;
+
+    const layer = new Layer(numNodesIn, numNodesOut);
+
+    it("should be update properties", () => {
+        const newProps: LayerProperties = {
+            numNodesIn: 2,
+            numNodesOut: 3,
+            weights: [0, 0, 0, 0, 0, 0],
+            biases: [0, 0, 0]
+        };
+
+        layer.loadProps(newProps);
+        expect(layer.properties).toEqual(newProps);
+    });
+
+    it("should be thrown InvalidPositiveIntegerError", () => {
+        const newProps: LayerProperties = {
+            numNodesIn: 0,
+            numNodesOut: 0,
+            weights: [],
+            biases: []
+        }
+        expect(() => layer.loadProps(newProps)).toThrow(InvalidPositiveIntegerError);
+    });
+
+    it("should be thrown InvalidWeigthsSizeError", () => {
+        const newProps: LayerProperties = {
+            numNodesIn: 2,
+            numNodesOut: 2,
+            weights: [0, 0, 0],
+            biases: [0, 0]
+        }
+        expect(() => layer.loadProps(newProps)).toThrow(InvalidWeigthsSizeError);
+    });
+
+    it("should be thrown InvalidBiasesSizeError", () => {
+        const newProps: LayerProperties = {
+            numNodesIn: 2,
+            numNodesOut: 2,
+            weights: [0, 0, 0, 0],
+            biases: [0]
+        }
+        
+        expect(() => layer.loadProps(newProps)).toThrow(InvalidBiasesSizeError);
+    });
 });
 
 describe("Calculate outputs", () => {
