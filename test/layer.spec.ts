@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { Layer } from "../src";
-import { InvalidPositiveIntegerError } from "../src/errors";
+import { ActivationFunctionType, Layer } from "../src";
+import { InvalidInputSizeError, InvalidPositiveIntegerError } from "../src/errors";
 
 describe("Create Layer", () => {
     it("should be able to create a Layer", () => {
@@ -47,4 +47,24 @@ describe("Layer generated properties", () => {
     it("should be have the correct number of biases", () => {
         expect(properties.biases.length).toEqual(numNodesOut);
     })
+});
+
+describe("Calculate outputs", () => {
+    const numNodesIn = 1;
+    const numNodesOut = 2;
+    const activationType: ActivationFunctionType = "sigmoid";
+
+    const layer = new Layer(numNodesIn, numNodesOut);
+
+    it("should be the same size as numNodesOut", () => {
+        const inputs = [0];
+        const outputs = layer.calculateOutputs(inputs, activationType);
+
+        expect(outputs.length).toEqual(layer.properties.numNodesOut);
+    });
+
+    it("should be throw an abc exception InvalidInputSizeErro", () => {
+        const inputs = [0, 0];
+        expect(() => layer.calculateOutputs(inputs, activationType)).toThrow(InvalidInputSizeError);
+    });
 });
