@@ -1,4 +1,4 @@
-import { InvalidInputSizeError, InvalidPositiveIntegerError } from "../errors";
+import { InvalidBiasesSizeError, InvalidInputSizeError, InvalidPositiveIntegerError, InvalidWeigthsSizeError } from "../errors";
 import { ActivationFunctionType, LayerProperties } from "../types";
 import { gaussianRandom, getActivationInstanceOf } from "../utils";
 
@@ -28,6 +28,27 @@ export class Layer {
 
         this.weights = this.createArrayWithRandomValues(numNodesIn * numNodesOut);
         this.biases = this.createArrayWithRandomValues(numNodesOut);
+    }
+
+    public loadProps(props: LayerProperties): void {
+        const {numNodesIn, numNodesOut, weights, biases} = props;
+        
+        if (numNodesIn <= 0 || numNodesOut <= 0 || !Number.isInteger(numNodesIn) || !Number.isInteger(numNodesOut)) {
+            throw new InvalidPositiveIntegerError();
+        }
+
+        if (weights.length !== numNodesIn* numNodesOut) {
+            throw new InvalidWeigthsSizeError();
+        }
+
+        if (biases.length !== numNodesOut) {
+            throw new InvalidBiasesSizeError();
+        }
+
+        this.numNodesIn = props.numNodesIn;
+        this.numNodesOut = props.numNodesOut;
+        this.weights = props.weights
+        this.biases = props.biases;
     }
 
     public calculateOutputs(inputs: number[], activationType: ActivationFunctionType): number[] {
