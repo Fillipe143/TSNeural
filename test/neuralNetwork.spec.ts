@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Activation, InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../src";
+import { Activation, InvalidInputSizeError, InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../src";
 
 describe("Create NeuralNetwork", () => {
     it("should be able to create an NeuralNetwork", () => {
@@ -83,5 +83,24 @@ describe("NeuralNetwork load properties", () => {
         };
 
         expect(() => neuralNetwork.loadProps(newProps)).toThrow(InvalidNumberOfNodesError);
+    });
+});
+
+describe("Calculate outputs", () => {
+    const layerSizes = [1, 2];
+    const activation = Activation.SIGMOID;
+
+    const neuralNetwork = new NeuralNetwork(layerSizes, activation);
+
+    it("should be the same size as numNodesOut", () => {
+        const inputs = [0];
+        const outputs = neuralNetwork.calculateOutputs(inputs);
+
+        expect(outputs.length).toEqual(layerSizes.at(-1));
+    });
+
+    it("should be throw an exception InvalidInputSizeErro", () => {
+        const inputs = [0, 0];
+        expect(() => neuralNetwork.calculateOutputs(inputs)).toThrow(InvalidInputSizeError);
     });
 });
