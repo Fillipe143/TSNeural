@@ -103,4 +103,11 @@ describe("Calculate outputs", () => {
         const inputs = [0, 0];
         expect(() => neuralNetwork.calculateOutputs(inputs)).toThrow(InvalidInputSizeError);
     });
+
+    it("should be return an index of outputs", () => {
+        const inputs = [0];
+        const classification = neuralNetwork.classifyOutput(inputs);
+
+        expect(classification >= 0 && classification < layerSizes[1]).toEqual(true);
+    });
 });
