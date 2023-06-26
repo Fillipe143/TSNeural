@@ -56,4 +56,9 @@ export class NeuralNetwork {
 
         return inputs;
     }
+
+    public classifyOutput(inputs: number[]): number {
+        const outputs = this.calculateOutputs(inputs);
+        return outputs.indexOf(Math.max(...outputs));
+    }
 }
