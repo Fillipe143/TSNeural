@@ -1,10 +1,10 @@
 import { ReLU, Sigmoid, Tanh } from "../models";
-import { ActivationFunction, ActivationFunctionType } from "../types";
+import { Activation, ActivationFunction } from "../types";
 
-export function getActivationInstanceOf(type: ActivationFunctionType): ActivationFunction {
+export function getActivationInstanceOf(type: Activation): ActivationFunction {
     switch (type) {
-        case "relu": return new ReLU();
-        case "sigmoid": return new Sigmoid();
-        case "tanh": return new Tanh();
+        case Activation.RELU: return new ReLU();
+        case Activation.SIGMOID: return new Sigmoid();
+        case Activation.TANH: return new Tanh();
     }
 }

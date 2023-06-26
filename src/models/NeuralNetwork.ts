@@ -1,8 +1,7 @@
 import { InvalidNumberOfNodesError, LayerSizeInsufficientError } from "../errors";
-import { ActivationFunction, NeuralProperties } from "../types";
+import { Activation, ActivationFunction, NeuralProperties } from "../types";
 import { getActivationInstanceOf } from "../utils";
 import { Layer } from "./Layer";
-import { Sigmoid } from "./activationFunctions/Sigmoid";
 
 export class NeuralNetwork {
     private layers: Layer[];
@@ -15,7 +14,7 @@ export class NeuralNetwork {
         };
     }
 
-    constructor(layerSizes: number[], activationFunc: ActivationFunction = new Sigmoid()) {
+    constructor(layerSizes: number[], activation: Activation = Activation.SIGMOID) {
         if (layerSizes.length < 2) {
             throw new LayerSizeInsufficientError();
         }
@@ -24,7 +23,7 @@ export class NeuralNetwork {
             return new Layer(layerSizes[i], layerSizes[i + 1]);
         });
 
-        this.activationFunc = activationFunc;
+        this.activationFunc = getActivationInstanceOf(activation);
     }
 
     public loadProps(props: NeuralProperties): void {

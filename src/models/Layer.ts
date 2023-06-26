@@ -1,6 +1,6 @@
 import { InvalidBiasesSizeError, InvalidInputSizeError, InvalidPositiveIntegerError, InvalidWeigthsSizeError } from "../errors";
-import { ActivationFunctionType, LayerProperties } from "../types";
-import { gaussianRandom, getActivationInstanceOf } from "../utils";
+import { ActivationFunction, LayerProperties } from "../types";
+import { gaussianRandom } from "../utils";
 
 export class Layer {
     private numNodesIn: number;
@@ -51,12 +51,11 @@ export class Layer {
         this.biases = props.biases;
     }
 
-    public calculateOutputs(inputs: number[], activationType: ActivationFunctionType): number[] {
+    public calculateOutputs(inputs: number[], activationFunc: ActivationFunction): number[] {
         if (inputs.length !== this.numNodesIn) {
             throw new InvalidInputSizeError();
         }
 
-        const { activate } = getActivationInstanceOf(activationType);
         const outputs: number[] = new Array(this.numNodesOut);
 
         for (let nodeOut = 0; nodeOut < this.numNodesOut; nodeOut++) {
@@ -66,7 +65,7 @@ export class Layer {
                 weightedInput += inputs[nodeIn] * this.weights[this.getWeightFlatIndex(nodeIn, nodeOut)];
             }
 
-            outputs[nodeOut] = activate(weightedInput);
+            outputs[nodeOut] = activationFunc.activate(weightedInput);
         }
 
         return outputs;

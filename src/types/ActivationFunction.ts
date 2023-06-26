@@ -1,6 +1,8 @@
-export type ActivationFunctionType = "sigmoid" | "tanh" | "relu";
+export enum Activation {
+    SIGMOID, TANH, RELU
+}
 
 export interface ActivationFunction {
-    get type(): ActivationFunctionType;
+    get type(): Activation;
     activate(x: number): number;
 }

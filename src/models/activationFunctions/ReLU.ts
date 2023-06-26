@@ -1,8 +1,8 @@
-import { ActivationFunction, ActivationFunctionType } from "../../types";
+import { Activation, ActivationFunction } from "../../types";
 
 export class ReLU implements ActivationFunction {
-    public get type(): ActivationFunctionType {
-        return "relu";
+    public get type(): Activation {
+        return Activation.RELU;
     }
 
     public activate(x: number): number {

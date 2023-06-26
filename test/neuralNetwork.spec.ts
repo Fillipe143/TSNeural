@@ -1,27 +1,27 @@
 import { describe, expect, it } from "vitest";
-import { InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../src";
+import { Activation, InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../src";
 
 describe("Create NeuralNetwork", () => {
     it("should be able to create an NeuralNetwork", () => {
         const layerSizes = [2, 2];
-        const activationFunc = new ReLU();
+        const activation = Activation.RELU;
 
-        expect(new NeuralNetwork(layerSizes, activationFunc)).instanceOf(NeuralNetwork);
+        expect(new NeuralNetwork(layerSizes, activation)).instanceOf(NeuralNetwork);
     });
 
     it("should not be able to create a NeuralNetwork", () => {
         const layerSizes = [];
-        const activationFunc = new ReLU();
+        const activation = Activation.RELU;
 
-        expect(() => new NeuralNetwork(layerSizes, activationFunc)).toThrow();
+        expect(() => new NeuralNetwork(layerSizes, activation)).toThrow();
     });
 });
 
 describe("NeuralNetwork generated properties", () => {
     const layerSizes = [2, 3, 2];
-    const activationFunc = new ReLU();
+    const activation = Activation.RELU;
 
-    const neuralNetwork = new NeuralNetwork(layerSizes, activationFunc);
+    const neuralNetwork = new NeuralNetwork(layerSizes, activation);
     const properties = neuralNetwork.properties;
 
     it("should be have the correct number of layers", () => {
@@ -29,15 +29,15 @@ describe("NeuralNetwork generated properties", () => {
     });
 
     it("should be have a correct activation type", () => {
-        expect(properties.activation).toEqual(activationFunc.type);
+        expect(properties.activation).toEqual(activation);
     });
 });
 
 describe("NeuralNetwork load properties", () => {
     const layerSizes = [2, 3, 2];
-    const activationFunc = new ReLU();
+    const activation = Activation.RELU;
 
-    const neuralNetwork = new NeuralNetwork(layerSizes, activationFunc);
+    const neuralNetwork = new NeuralNetwork(layerSizes, activation);
 
     it("should be update properties", () => {
         const newProps: NeuralProperties = {
@@ -47,7 +47,7 @@ describe("NeuralNetwork load properties", () => {
                 weights: [0],
                 biases: [0]
             }],
-            activation: "sigmoid"
+            activation: Activation.SIGMOID
         };
 
         neuralNetwork.loadProps(newProps);
@@ -57,7 +57,7 @@ describe("NeuralNetwork load properties", () => {
     it("should be thrown LayerSizeInsufficientError", () => {
         const newProps: NeuralProperties = {
             layers: [],
-            activation: "sigmoid"
+            activation: Activation.SIGMOID
         };
 
         expect(() => neuralNetwork.loadProps(newProps)).toThrow(LayerSizeInsufficientError);
@@ -79,9 +79,9 @@ describe("NeuralNetwork load properties", () => {
                     biases: [0, 0]
                 }
             ],
-            activation: "sigmoid"
+            activation: Activation.SIGMOID
         };
 
-        expect(()=> neuralNetwork.loadProps(newProps)).toThrow(InvalidNumberOfNodesError);
+        expect(() => neuralNetwork.loadProps(newProps)).toThrow(InvalidNumberOfNodesError);
     });
 });

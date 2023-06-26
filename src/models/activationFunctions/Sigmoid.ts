@@ -1,8 +1,8 @@
-import { ActivationFunction, ActivationFunctionType } from "../../types";
+import { Activation, ActivationFunction } from "../../types";
 
 export class Sigmoid implements ActivationFunction {
-    public get type(): ActivationFunctionType {
-        return "sigmoid";
+    public get type(): Activation {
+        return Activation.SIGMOID;
     }
 
     public activate(x: number): number {

@@ -1,10 +1,10 @@
 import { expect, test } from "vitest";
-import { ActivationFunctionType, Sigmoid } from "../src";
+import { Activation, Sigmoid } from "../src";
 import { getActivationInstanceOf } from "../src/utils";
 
 test("is returning activation class instance correctly", () => {
-    const type: ActivationFunctionType = "sigmoid";
-    const activation = getActivationInstanceOf(type);
+    const activation: Activation = Activation.SIGMOID;
+    const activationFunc = getActivationInstanceOf(activation);
 
-    expect(activation).instanceOf(Sigmoid);
+    expect(activationFunc).instanceOf(Sigmoid);
 });

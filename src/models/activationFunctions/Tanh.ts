@@ -1,8 +1,8 @@
-import { ActivationFunction, ActivationFunctionType } from "../../types";
+import { Activation, ActivationFunction } from "../../types";
 
 export class Tanh implements ActivationFunction {
-    public get type(): ActivationFunctionType {
-        return "tanh";
+    public get type(): Activation {
+        return Activation.TANH;
     }
 
     public activate(x: number): number {
