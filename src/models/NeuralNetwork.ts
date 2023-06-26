@@ -48,4 +48,12 @@ export class NeuralNetwork {
         this.layers = nLayers;
         this.activationFunc = getActivationInstanceOf(activation);
     }
+
+    public calculateOutputs(inputs: number[]): number[] {
+        this.layers.forEach((layer, i) => {
+            inputs = layer.calculateOutputs(inputs, this.activationFunc);
+        });
+
+        return inputs;
+    }
 }
