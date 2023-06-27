@@ -79,6 +79,21 @@ export class Layer {
         return outputs;
     }
 
+    public applyGradient(learnRate: number): void {
+        if (learnRate <= 0) {
+            throw new InvalidPositiveIntegerError();
+        }
+        
+        for (let nodeOut = 0; nodeOut < this.numNodesOut; nodeOut++) {
+            this.biases[nodeOut] -= this.costGradientB[nodeOut] * learnRate;
+
+            for (let nodeIn = 0; nodeIn < this.numNodesIn; nodeIn++) {
+                const flatIndex = this.getWeightFlatIndex(nodeIn, nodeOut);
+                this.weights[flatIndex] -= this.costGradientW[flatIndex] * learnRate;
+            }
+        }
+    }
+
     private getWeightFlatIndex(nodeIn: number, nodeOut: number): number {
         const flatIndex = nodeOut * this.numNodesIn + nodeIn;
         return flatIndex;
