@@ -123,3 +123,20 @@ describe("Calculate outputs", () => {
         expect(() => layer.calculateOutputs(inputs, activationFunc)).toThrow(InvalidInputSizeError);
     });
 });
+
+describe("Apply gradient", () => {
+    const numNodesIn = 1;
+    const numNodesOut = 2;
+
+    const layer = new Layer(numNodesIn, numNodesOut);
+    
+    it("should be able to apply the gradient", () => {    
+        const learnRate = 0.00001
+        layer.applyGradient(learnRate);
+    });
+
+    it("should be thrown InvalidPositiveIntegerError", () => {
+        const learnRate = 0;
+        expect(()=> layer.applyGradient(learnRate)).toThrow(InvalidPositiveIntegerError);
+    });
+});
