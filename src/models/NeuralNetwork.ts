@@ -76,4 +76,14 @@ export class NeuralNetwork {
 
         return cost;
     }
+
+    public calculateTotalCost(data: DataPoint[]): number {
+        if (data.length <= 0) return 0;
+        
+        const cost = data.reduce((cost, dataPoint) => {
+            return cost + this.calculateSingleCost(dataPoint);
+        }, 0);
+
+        return cost / data.length;
+    }
 }
