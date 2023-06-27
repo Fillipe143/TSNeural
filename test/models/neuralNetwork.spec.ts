@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Activation, InvalidInputSizeError, InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../src";
+import { Activation, InvalidInputSizeError, InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../../src";
 
 describe("Create NeuralNetwork", () => {
     it("should be able to create an NeuralNetwork", () => {

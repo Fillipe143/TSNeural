@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { Layer, LayerProperties, Sigmoid } from "../src";
+import { Layer, LayerProperties, Sigmoid } from "../../src";
 import {
     InvalidBiasesSizeError,
     InvalidInputSizeError,
     InvalidPositiveIntegerError,
     InvalidWeigthsSizeError
-} from "../src/errors";
+} from "../../src/errors";
 
 describe("Create Layer", () => {
     it("should be able to create a Layer", () => {

@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { calculateNodeCost } from "../src/utils";
+import { calculateNodeCost } from "../../src/utils";
 
 test("should be return a positive integer", () => {
     const output = 0;

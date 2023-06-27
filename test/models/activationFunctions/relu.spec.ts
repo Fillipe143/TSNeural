@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { ReLU } from "../../src";
+import { ReLU } from "../../../src";
 
 test("is activating number using relu correctly", () => {
     // ReLu(-0.5) = 0;

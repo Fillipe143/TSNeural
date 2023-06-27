@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { Sigmoid } from "../../src";
+import { Sigmoid } from "../../../src";
 
 test("is activating number using sigmoid correctly", () => {
     // Sigmoid(0) = 0.5;

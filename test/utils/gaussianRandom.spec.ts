@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { gaussianRandom } from "../src/utils";
+import { gaussianRandom } from "../../src/utils";
 
 test("it should be return a number", () => {
     const mean = 0;
