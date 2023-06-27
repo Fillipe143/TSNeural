@@ -9,6 +9,9 @@ export class Layer {
     private weights: number[];
     private biases: number[];
 
+    private costGradientW: number[];
+    private costGradientB: number[];
+
     public get properties(): LayerProperties {
         return {
             numNodesIn: this.numNodesIn,
@@ -28,16 +31,19 @@ export class Layer {
 
         this.weights = this.createArrayWithRandomValues(numNodesIn * numNodesOut);
         this.biases = this.createArrayWithRandomValues(numNodesOut);
+
+        this.costGradientW = new Array(numNodesIn * numNodesOut);
+        this.costGradientB = new Array(numNodesOut);
     }
 
     public loadProps(props: LayerProperties): void {
-        const {numNodesIn, numNodesOut, weights, biases} = props;
-        
+        const { numNodesIn, numNodesOut, weights, biases } = props;
+
         if (numNodesIn <= 0 || numNodesOut <= 0 || !Number.isInteger(numNodesIn) || !Number.isInteger(numNodesOut)) {
             throw new InvalidPositiveIntegerError();
         }
 
-        if (weights.length !== numNodesIn* numNodesOut) {
+        if (weights.length !== numNodesIn * numNodesOut) {
             throw new InvalidWeigthsSizeError();
         }
 
@@ -45,10 +51,12 @@ export class Layer {
             throw new InvalidBiasesSizeError();
         }
 
-        this.numNodesIn = props.numNodesIn;
-        this.numNodesOut = props.numNodesOut;
-        this.weights = props.weights
-        this.biases = props.biases;
+        this.numNodesIn = numNodesIn;
+        this.numNodesOut = numNodesOut;
+        this.weights = weights
+        this.biases = biases;
+        this.costGradientW = new Array(numNodesIn * numNodesOut);
+        this.costGradientB = new Array(numNodesOut);
     }
 
     public calculateOutputs(inputs: number[], activationFunc: ActivationFunction): number[] {
