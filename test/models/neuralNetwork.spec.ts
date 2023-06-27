@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Activation, InvalidInputSizeError, InvalidNumberOfNodesError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../../src";
+import { Activation, DataPoint, InvalidInputSizeError, InvalidNumberOfNodesError, InvalidOutputsSizeError, LayerSizeInsufficientError, NeuralNetwork, NeuralProperties, ReLU } from "../../src";
 
 describe("Create NeuralNetwork", () => {
     it("should be able to create an NeuralNetwork", () => {
@@ -109,5 +109,40 @@ describe("Calculate outputs", () => {
         const classification = neuralNetwork.classifyOutput(inputs);
 
         expect(classification >= 0 && classification < layerSizes[1]).toEqual(true);
+    });
+});
+
+describe("Calculate costs", () => {
+    const layerSizes = [1, 2];
+    const activation = Activation.TANH;
+
+    const neuralNetwork = new NeuralNetwork(layerSizes, activation);
+
+    it("should be able to calculate a single cost", () => {
+        const dataPoint: DataPoint = {
+            inputs: [0],
+            expectedOutputs: [0, 0]
+        };
+
+        const cost = neuralNetwork.calculateSingleCost(dataPoint);
+        expect(!isNaN(cost)).toEqual(true);
+    });
+
+    it("should be throw an exception InvalidInputSizeError", () => {
+        const dataPoint: DataPoint = {
+            inputs: [0, 0],
+            expectedOutputs: [0, 0]
+        };
+
+        expect(() => neuralNetwork.calculateSingleCost(dataPoint)).toThrow(InvalidInputSizeError);
+    });
+
+    it("should be throw an exception InvalidOutputsSizeError", () => {
+        const dataPoint: DataPoint = {
+            inputs: [0],
+            expectedOutputs: [0]
+        };
+
+        expect(() => neuralNetwork.calculateSingleCost(dataPoint)).toThrow(InvalidOutputsSizeError);
     });
 });
