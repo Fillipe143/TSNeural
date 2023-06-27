@@ -32,8 +32,8 @@ export class Layer {
         this.weights = this.createArrayWithRandomValues(numNodesIn * numNodesOut);
         this.biases = this.createArrayWithRandomValues(numNodesOut);
 
-        this.costGradientW = new Array(numNodesIn * numNodesOut);
-        this.costGradientB = new Array(numNodesOut);
+        this.costGradientW = new Array(numNodesIn * numNodesOut).fill(0);
+        this.costGradientB = new Array(numNodesOut).fill(0);
     }
 
     public loadProps(props: LayerProperties): void {
@@ -55,8 +55,8 @@ export class Layer {
         this.numNodesOut = numNodesOut;
         this.weights = weights
         this.biases = biases;
-        this.costGradientW = new Array(numNodesIn * numNodesOut);
-        this.costGradientB = new Array(numNodesOut);
+        this.costGradientW = new Array(numNodesIn * numNodesOut).fill(0);
+        this.costGradientB = new Array(numNodesOut).fill(0);
     }
 
     public calculateOutputs(inputs: number[], activationFunc: ActivationFunction): number[] {
