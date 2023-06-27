@@ -121,7 +121,7 @@ describe("Calculate costs", () => {
     it("should be able to calculate a single cost", () => {
         const dataPoint: DataPoint = {
             inputs: [0],
-            expectedOutputs: [0, 0]
+            expectedOutputs: [0, 1]
         };
 
         const cost = neuralNetwork.calculateSingleCost(dataPoint);
@@ -131,7 +131,7 @@ describe("Calculate costs", () => {
     it("should be throw an exception InvalidInputSizeError", () => {
         const dataPoint: DataPoint = {
             inputs: [0, 0],
-            expectedOutputs: [0, 0]
+            expectedOutputs: [0, 1]
         };
 
         expect(() => neuralNetwork.calculateSingleCost(dataPoint)).toThrow(InvalidInputSizeError);
@@ -144,5 +144,28 @@ describe("Calculate costs", () => {
         };
 
         expect(() => neuralNetwork.calculateSingleCost(dataPoint)).toThrow(InvalidOutputsSizeError);
+    });
+
+    it("should be able to calculate a total cost", () => {
+        const data: DataPoint[] = [
+            {
+                inputs: [0],
+                expectedOutputs: [0, 1]
+            },
+            {
+                inputs: [1],
+                expectedOutputs: [1, 0]
+            }
+        ];
+
+        const cost = neuralNetwork.calculateTotalCost(data);
+        expect(!isNaN(cost)).toEqual(true);
+    });
+
+    it("should be return 0", () => {
+        const data: DataPoint[] = [];
+
+        const cost = neuralNetwork.calculateTotalCost(data);
+        expect(cost).toEqual(0);
     });
 });
