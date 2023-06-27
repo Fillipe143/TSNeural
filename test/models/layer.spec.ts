@@ -118,7 +118,7 @@ describe("Calculate outputs", () => {
         expect(outputs.length).toEqual(layer.properties.numNodesOut);
     });
 
-    it("should be throw an exception InvalidInputSizeErro", () => {
+    it("should be throw an exception InvalidInputSizeError", () => {
         const inputs = [0, 0];
         expect(() => layer.calculateOutputs(inputs, activationFunc)).toThrow(InvalidInputSizeError);
     });
