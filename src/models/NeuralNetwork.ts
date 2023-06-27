@@ -1,6 +1,6 @@
-import { InvalidNumberOfNodesError, LayerSizeInsufficientError } from "../errors";
-import { Activation, ActivationFunction, NeuralProperties } from "../types";
-import { getActivationInstanceOf } from "../utils";
+import { InvalidNumberOfNodesError, InvalidOutputsSizeError, LayerSizeInsufficientError } from "../errors";
+import { Activation, ActivationFunction, DataPoint, NeuralProperties } from "../types";
+import { calculateNodeCost, getActivationInstanceOf } from "../utils";
 import { Layer } from "./Layer";
 
 export class NeuralNetwork {
@@ -60,5 +60,20 @@ export class NeuralNetwork {
     public classifyOutput(inputs: number[]): number {
         const outputs = this.calculateOutputs(inputs);
         return outputs.indexOf(Math.max(...outputs));
+    }
+
+    public calculateSingleCost(dataPoint: DataPoint): number {
+        const { inputs, expectedOutputs } = dataPoint;
+        const outputs = this.calculateOutputs(inputs);
+
+        if (expectedOutputs.length !== outputs.length) {
+            throw new InvalidOutputsSizeError();
+        }
+
+        const cost = outputs.reduce((cost, output, i) => {
+            return cost + calculateNodeCost(output, expectedOutputs[i]);
+        }, 0);
+
+        return cost;
     }
 }
