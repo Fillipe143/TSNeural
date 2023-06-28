@@ -6,11 +6,11 @@ export class Layer {
     private numNodesIn: number;
     private numNodesOut: number;
 
-    private weights: number[];
-    private biases: number[];
+    public weights: number[];
+    public biases: number[];
 
-    private costGradientW: number[];
-    private costGradientB: number[];
+    public costGradientW: number[];
+    public costGradientB: number[];
 
     public get properties(): LayerProperties {
         return {
