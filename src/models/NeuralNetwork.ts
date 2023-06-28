@@ -79,11 +79,38 @@ export class NeuralNetwork {
 
     public calculateTotalCost(data: DataPoint[]): number {
         if (data.length <= 0) return 0;
-        
+
         const cost = data.reduce((cost, dataPoint) => {
             return cost + this.calculateSingleCost(dataPoint);
         }, 0);
 
         return cost / data.length;
+    }
+
+    public learn(trainingData: DataPoint[], learnRate: number): void {
+        const h = 0.00001;
+        const originalCost = this.calculateTotalCost(trainingData);
+
+        this.layers.forEach((layer) => {
+            layer.weights.forEach((_, i) => {
+                layer.weights[i] += h;
+
+                const deltaCost = this.calculateTotalCost(trainingData) - originalCost;
+                layer.weights[i] -= h;
+
+                layer.costGradientW[i] = deltaCost / h;
+            });
+
+            layer.biases.forEach((_, i) => {
+                layer.biases[i] += h;
+
+                const deltaCost = this.calculateTotalCost(trainingData) - originalCost;
+                layer.biases[i] -= h;
+
+                layer.costGradientB[i] = deltaCost / h;
+            });
+
+            layer.applyGradient(learnRate);
+        });
     }
 }
