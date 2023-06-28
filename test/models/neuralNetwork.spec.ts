@@ -169,3 +169,36 @@ describe("Calculate costs", () => {
         expect(cost).toEqual(0);
     });
 });
+
+describe("Learn", () => {
+    it("should reduce the cost", () => {
+        const layerSize = [1, 2];
+        const activation = Activation.RELU;
+
+        const data: DataPoint[] = [
+            {
+                inputs: [0],
+                expectedOutputs: [0, 1]
+            },
+            {
+                inputs: [1],
+                expectedOutputs: [1, 0]
+            }
+        ];
+
+        const neuralNetwork = new NeuralNetwork(layerSize, activation);
+        
+        const properties = neuralNetwork.properties;
+        properties.layers[0].weights.fill(0);
+        properties.layers[0].biases.fill(0);
+        neuralNetwork.loadProps(properties);
+
+        const originalCost = neuralNetwork.calculateTotalCost(data);
+
+        const learnRate = 0.1;
+        neuralNetwork.learn(data, learnRate);
+
+        const newCost = neuralNetwork.calculateTotalCost(data);
+        expect(newCost < originalCost).toEqual(true);
+    });
+});
