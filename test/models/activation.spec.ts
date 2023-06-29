@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Sigmoid, Tanh } from "../../src";
+import { ReLU, Sigmoid, Tanh } from "../../src";
 
 describe("Sigmoid", () => {
     const x = 0;
@@ -27,6 +27,21 @@ describe("Tanh", () => {
     
     it("derivative should return a valid number", () => {
         const xDerivated = tanh.derivative(x);
+        expect(!isNaN(xDerivated)).toEqual(true);
+    });
+});
+
+describe("ReLU", () => {
+    const x = 0;
+    const relu = new ReLU();
+
+    it("activate should return a valid number", () => {
+        const xActivated = relu.activate(x);
+        expect(!isNaN(xActivated)).toEqual(true);
+    });
+    
+    it("derivative should return a valid number", () => {
+        const xDerivated = relu.derivative(x);
         expect(!isNaN(xDerivated)).toEqual(true);
     });
 });
