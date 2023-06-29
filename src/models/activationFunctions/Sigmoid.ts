@@ -11,7 +11,7 @@ export class Sigmoid implements ActivationFunction {
     }
 
     public derivative(x: number): number {
-        const activatedX = this.activate(x);
-        return activatedX * (1 - activatedX);
+        const xActivated = this.activate(x);
+        return xActivated * (1 - xActivated);
     }
 }
