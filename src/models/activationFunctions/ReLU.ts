@@ -11,6 +11,6 @@ export class ReLU implements ActivationFunction {
     }
 
     public derivative(x: number): number {
-        return 0;
+        return x > 0 ? 1 : 0;
     }
 }
