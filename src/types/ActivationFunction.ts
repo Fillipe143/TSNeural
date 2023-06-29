@@ -5,4 +5,5 @@ export enum Activation {
 export interface ActivationFunction {
     get type(): Activation;
     activate(x: number): number;
+    derivative(x: number): number;
 }

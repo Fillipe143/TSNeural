@@ -9,4 +9,8 @@ export class ReLU implements ActivationFunction {
         // f(x) = x, if x > 0; f(x) = 0, if x <= 0
         return Math.max(0, x);
     }
+
+    public derivative(x: number): number {
+        return 0;
+    }
 }

@@ -10,4 +10,8 @@ export class Tanh implements ActivationFunction {
         const e2 = Math.exp(2 * x);
         return (e2 - 1) / (e2 + 1);
     }
+    
+    public derivative(x: number): number {
+        return 0;
+    }
 }
